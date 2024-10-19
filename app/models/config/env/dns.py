@@ -18,5 +18,8 @@ class DNSConfig(EnvSettings, env_prefix="DNS_"):
 
     def model_post_init(self, __context: Any) -> None:
         tsig: dict[str, str] = {self.tsig_username: self.tsig_password.get_secret_value()}
-        self.valid_zones = [f"{zone}." for zone in self.valid_zones if not zone.endswith(".")]
+        self.valid_zones = [
+            f"{zone}." if not zone.endswith(".") else zone
+            for zone in self.valid_zones
+        ]
         self.tsig_keyring = dns.tsigkeyring.from_text(tsig)
