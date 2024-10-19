@@ -1,0 +1,12 @@
+[Unit]
+Description=Bind9 REST API for DNS management
+
+[Service]
+User=your_username_here
+WorkingDirectory=/full_path/to/your/working/directory
+ExecStart=/usr/bin/make run
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
